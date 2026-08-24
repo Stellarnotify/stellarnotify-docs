@@ -53,6 +53,7 @@ const sidebars: SidebarsConfig = {
       label: "Code Examples",
       items: [
         "examples/subscribe-sdk",
+        "examples/subscribe-cli",
       ],
     },
   ],
