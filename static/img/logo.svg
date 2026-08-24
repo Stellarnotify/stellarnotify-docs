@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!-- Star shape representing Stellar -->
+  <polygon
+    points="24,4 28,18 42,18 31,27 35,41 24,32 13,41 17,27 6,18 20,18"
+    fill="#7c3aed"
+  />
+  <!-- Notification dot -->
+  <circle cx="38" cy="10" r="6" fill="#a78bfa" />
+</svg>

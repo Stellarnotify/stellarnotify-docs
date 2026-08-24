@@ -1,6 +1,7 @@
 ---
 id: security
 title: Security Model
+sidebar_position: 7
 ---
 
 # Security Model
