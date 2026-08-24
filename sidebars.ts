@@ -48,6 +48,13 @@ const sidebars: SidebarsConfig = {
     { type: "doc", id: "deploying-to-mainnet", label: "Deploying to Mainnet" },
     { type: "doc", id: "contributing", label: "Contributing" },
     { type: "doc", id: "license", label: "License" },
+    {
+      type: "category",
+      label: "Code Examples",
+      items: [
+        "examples/subscribe-sdk",
+      ],
+    },
   ],
 };
 
