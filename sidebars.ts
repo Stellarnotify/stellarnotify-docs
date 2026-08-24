@@ -38,6 +38,7 @@ const sidebars: SidebarsConfig = {
     },
     { type: "doc", id: "security", label: "Security Model" },
     { type: "doc", id: "integration-guide", label: "Integration Guide" },
+    { type: "doc", id: "faq", label: "FAQ" },
     { type: "doc", id: "contributing", label: "Contributing" },
     { type: "doc", id: "license", label: "License" },
   ],
