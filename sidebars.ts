@@ -39,6 +39,7 @@ const sidebars: SidebarsConfig = {
     { type: "doc", id: "security", label: "Security Model" },
     { type: "doc", id: "endpoint-privacy", label: "Endpoint Privacy" },
     { type: "doc", id: "integration-guide", label: "Integration Guide" },
+    { type: "doc", id: "use-cases", label: "Use Cases" },
     { type: "doc", id: "faq", label: "FAQ" },
     { type: "doc", id: "roadmap", label: "Roadmap" },
     { type: "doc", id: "changelog", label: "Changelog" },
