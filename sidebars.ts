@@ -54,6 +54,7 @@ const sidebars: SidebarsConfig = {
       items: [
         "examples/subscribe-sdk",
         "examples/subscribe-cli",
+        "examples/webhook-receiver",
       ],
     },
   ],
