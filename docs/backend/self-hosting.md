@@ -1,5 +1,5 @@
 ---
-id: backend/self-hosting
+id: backend-self-hosting
 title: Self-Hosting
 sidebar_position: 5
 ---

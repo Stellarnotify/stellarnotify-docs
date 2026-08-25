@@ -1,5 +1,5 @@
 ---
-id: backend/event-ingester
+id: backend-event-ingester
 title: Event Ingester
 sidebar_position: 2
 ---

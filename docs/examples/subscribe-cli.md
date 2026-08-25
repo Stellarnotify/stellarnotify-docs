@@ -1,5 +1,5 @@
 ---
-id: examples/subscribe-cli
+id: examples-subscribe-cli
 title: Subscribe via Stellar CLI (Bash)
 sidebar_position: 2
 ---

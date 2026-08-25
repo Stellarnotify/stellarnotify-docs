@@ -1,5 +1,5 @@
 ---
-id: examples/webhook-receiver
+id: examples-webhook-receiver
 title: Webhook Receiver in Express
 sidebar_position: 3
 ---

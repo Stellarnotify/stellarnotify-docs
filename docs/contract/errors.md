@@ -1,5 +1,5 @@
 ---
-id: contract/errors
+id: contract-errors
 title: Error Codes
 sidebar_position: 5
 ---

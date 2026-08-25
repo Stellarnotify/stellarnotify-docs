@@ -1,5 +1,5 @@
 ---
-id: frontend/sse
+id: frontend-sse
 title: Real-time Feed (SSE)
 sidebar_position: 3
 ---

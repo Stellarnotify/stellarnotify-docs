@@ -1,5 +1,5 @@
 ---
-id: examples/sse-consumer
+id: examples-sse-consumer
 title: SSE Consumer (Vanilla JS)
 sidebar_position: 4
 ---

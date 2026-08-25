@@ -1,5 +1,5 @@
 ---
-id: contract/manage
+id: contract-manage
 title: Manage Subscriptions
 sidebar_position: 4
 ---
