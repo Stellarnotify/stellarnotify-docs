@@ -26,10 +26,10 @@ const config: Config = {
       },
     ],
   ],
+  themes: ["@docusaurus/theme-mermaid"],
   markdown: {
     mermaid: true,
   },
-  themes: ["@docusaurus/theme-mermaid"],
   themeConfig: {
     colorMode: { defaultMode: "dark", respectPrefersColorScheme: false },
     navbar: {
