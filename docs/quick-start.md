@@ -8,6 +8,10 @@ sidebar_position: 2
 
 Get StellarNotify running on testnet in under 10 minutes.
 
+:::tip
+This guide uses testnet. For mainnet deployment, see [Deploying to Mainnet](./deploying-to-mainnet).
+:::
+
 ## Prerequisites
 
 - [Rust](https://rustup.rs/) + `wasm32-unknown-unknown` target
@@ -26,6 +30,10 @@ git clone https://github.com/yourusername/stellarnotify-frontend
 ```
 
 ## 2. Build and deploy the contract
+
+:::warning
+Save the contract ID printed after deployment — you'll need it for every subsequent step.
+:::
 
 ```bash
 cd stellarnotify-contract
@@ -57,6 +65,10 @@ stellar contract invoke \
 
 ## 3. Configure and start the backend
 
+:::info
+The backend requires PostgreSQL and Redis running. Use the included `docker-compose.yml` if you don't have them installed locally.
+:::
+
 ```bash
 cd ../stellarnotify-backend
 cp .env.example .env
@@ -83,6 +95,10 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) and connect your Freighter wallet.
+
+:::tip
+Make sure Freighter is set to **testnet** mode before connecting.
+:::
 
 ## 5. Create your first subscription
 
