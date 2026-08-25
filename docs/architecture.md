@@ -57,55 +57,23 @@ sidebar_position: 3
 
 ## Sequence Diagram
 
-```mermaid
-sequenceDiagram
-    participant User
-    participant Frontend
-    participant Freighter
-    participant Stellar
-    participant Backend
-    participant PostgreSQL
-    participant Redis
-    participant Webhook
+The complete flow from subscription creation to notification delivery:
 
-    Note over User,Webhook: 1. Subscription Creation
-    User->>Frontend: Create subscription
-    Frontend->>Freighter: Sign subscribe() tx
-    Freighter->>Stellar: Submit transaction
-    Stellar-->>Frontend: Subscription ID
+1. **User** creates a subscription via the **Frontend**
+2. **Frontend** requests **Freighter** to sign the transaction
+3. **Freighter** submits the signed transaction to **Stellar**
+4. Transaction confirms on-chain with a subscription ID
+5. **Frontend** registers the webhook URL with the **Backend** API
+6. **Backend** stores the URL in **PostgreSQL**
 
-    Frontend->>Backend: POST /subscriptions/endpoint
-    Backend->>PostgreSQL: Store endpoint URL
-    Backend-->>Frontend: OK
+Then continuously:
 
-    Note over User,Webhook: 2. Event Ingestion (continuous loop)
-    loop Every 6 seconds
-        Backend->>Stellar: getEvents (RPC)
-        Stellar-->>Backend: Events from watched contracts
-        Backend->>Backend: Match events to subscriptions
-        Backend->>PostgreSQL: Write pending notifications
-    end
-
-    Note over User,Webhook: 3. Notification Dispatch
-    Backend->>PostgreSQL: Read pending notifications
-    
-    alt Webhook Channel
-        Backend->>Webhook: HTTP POST with HMAC signature
-        Webhook-->>Backend: 200 OK
-        Backend->>PostgreSQL: Mark delivered
-    end
-    
-    alt In-App Channel
-        Backend->>Redis: Publish notification
-        Redis->>Frontend: SSE stream push
-        Frontend->>User: Display alert
-    end
-    
-    alt On-Chain Channel
-        Backend->>Stellar: Submit re-emit transaction
-        Stellar-->>Backend: Confirmed
-    end
-```
+7. **Backend** polls **Stellar** RPC for new events every 6 seconds
+8. **Backend** matches events against subscriptions in **PostgreSQL**
+9. For matched events:
+   - **Webhook channel**: Backend sends HTTP POST to the registered endpoint
+   - **In-App channel**: Backend publishes to **Redis**, which streams to **Frontend** via SSE
+   - **On-Chain channel**: Backend submits a re-emit transaction to **Stellar**
 
 ## Storage
 
