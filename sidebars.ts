@@ -46,6 +46,7 @@ const sidebars: SidebarsConfig = {
     { type: "doc", id: "changelog", label: "Changelog" },
     { type: "doc", id: "testing", label: "Testing" },
     { type: "doc", id: "deploying-to-mainnet", label: "Deploying to Mainnet" },
+    { type: "doc", id: "support", label: "Support" },
     { type: "doc", id: "contributing", label: "Contributing" },
     { type: "doc", id: "license", label: "License" },
     {
