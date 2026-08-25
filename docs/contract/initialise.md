@@ -1,5 +1,5 @@
 ---
-id: contract-initialise
+id: initialise
 title: Initialise
 sidebar_position: 2
 ---

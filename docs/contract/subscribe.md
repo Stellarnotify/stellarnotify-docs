@@ -1,5 +1,5 @@
 ---
-id: contract-subscribe
+id: subscribe
 title: Subscribe
 sidebar_position: 3
 ---

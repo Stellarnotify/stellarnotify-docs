@@ -1,5 +1,5 @@
 ---
-id: examples-on-chain-channel
+id: on-chain-channel
 title: On-Chain Channel (Rust)
 sidebar_position: 5
 ---

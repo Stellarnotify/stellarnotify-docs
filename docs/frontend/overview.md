@@ -1,5 +1,5 @@
 ---
-id: frontend-overview
+id: overview
 title: Frontend Overview
 sidebar_position: 1
 ---

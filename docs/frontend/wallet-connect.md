@@ -1,5 +1,5 @@
 ---
-id: frontend-wallet-connect
+id: wallet-connect
 title: Wallet Connect
 sidebar_position: 2
 ---

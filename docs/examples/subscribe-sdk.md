@@ -1,5 +1,5 @@
 ---
-id: examples-subscribe-sdk
+id: subscribe-sdk
 title: Subscribe via stellar-sdk (JS)
 sidebar_position: 1
 ---

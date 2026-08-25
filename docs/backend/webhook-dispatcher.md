@@ -1,5 +1,5 @@
 ---
-id: backend-webhook-dispatcher
+id: webhook-dispatcher
 title: Webhook Dispatcher
 sidebar_position: 3
 ---

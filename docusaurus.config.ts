@@ -52,7 +52,7 @@ const config: Config = {
           items: [
             { label: "Introduction", to: "/" },
             { label: "Quick Start", to: "/quick-start" },
-            { label: "Contract Reference", to: "/contract-overview" },
+            { label: "Contract Reference", to: "/contract/overview" },
           ],
         },
         {

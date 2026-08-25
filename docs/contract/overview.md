@@ -1,5 +1,5 @@
 ---
-id: contract-overview
+id: overview
 title: Contract Overview
 ---
 

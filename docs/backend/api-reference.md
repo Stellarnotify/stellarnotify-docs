@@ -1,5 +1,5 @@
 ---
-id: backend-api-reference
+id: api-reference
 title: API Reference
 sidebar_position: 4
 ---
