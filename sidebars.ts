@@ -56,6 +56,7 @@ const sidebars: SidebarsConfig = {
         "examples/subscribe-cli",
         "examples/webhook-receiver",
         "examples/sse-consumer",
+        "examples/on-chain-channel",
       ],
     },
   ],
