@@ -19,21 +19,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
       
-      - name: Clear npm cache
-        run: npm cache clean --force
-      
-      - name: Install dependencies
-        run: npm ci
-      
-      - name: Build documentation
-        run: npm run build
-        env:
-          NODE_OPTIONS: --max-old-space-size=4096
+      - name: Build with Docker
+        run: |
+          docker build --target 0 -t stellarnotify-docs-build .
+          docker create --name extract stellarnotify-docs-build
+          docker cp extract:/app/build ./build
+          docker rm extract
       
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
