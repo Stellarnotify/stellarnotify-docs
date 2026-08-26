@@ -1,5 +1,6 @@
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const {themes} = require('prism-react-renderer');
+const lightCodeTheme = themes.github;
+const darkCodeTheme = themes.dracula;
 
 const config = {
   title: "StellarNotify",
@@ -12,6 +13,22 @@ const config = {
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   i18n: { defaultLocale: "en", locales: ["en"] },
+  
+  plugins: [
+    function (context, options) {
+      return {
+        name: 'disable-progress-plugin',
+        configureWebpack(config, isServer) {
+          return {
+            plugins: config.plugins.filter(
+              plugin => plugin.constructor.name !== 'ProgressPlugin'
+            ),
+          };
+        },
+      };
+    },
+  ],
+  
   presets: [
     [
       "classic",
