@@ -1,7 +1,6 @@
-import { themes as prismThemes } from "prism-react-renderer";
-import type { Config } from "@docusaurus/types";
+const { themes } = require("prism-react-renderer");
 
-const config: Config = {
+const config = {
   title: "StellarNotify",
   tagline: "On-chain event notification infrastructure for Stellar/Soroban",
   favicon: "img/favicon.ico",
@@ -62,11 +61,11 @@ const config: Config = {
       copyright: `Copyright © ${new Date().getFullYear()} StellarNotify. MIT License.`,
     },
     prism: {
-      theme: prismThemes.oneDark,
-      darkTheme: prismThemes.oneDark,
+      theme: themes.oneDark,
+      darkTheme: themes.oneDark,
       additionalLanguages: ["rust", "toml", "bash", "json"],
     },
   },
 };
 
-export default config;
+module.exports = config;
