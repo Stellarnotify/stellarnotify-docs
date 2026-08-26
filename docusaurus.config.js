@@ -14,21 +14,6 @@ const config = {
   onBrokenMarkdownLinks: "warn",
   i18n: { defaultLocale: "en", locales: ["en"] },
   
-  plugins: [
-    function (context, options) {
-      return {
-        name: 'disable-progress-plugin',
-        configureWebpack(config, isServer) {
-          return {
-            plugins: config.plugins.filter(
-              plugin => plugin.constructor.name !== 'ProgressPlugin'
-            ),
-          };
-        },
-      };
-    },
-  ],
-  
   presets: [
     [
       "classic",
