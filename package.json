@@ -4,9 +4,8 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "postinstall": "node scripts/patch-webpackbar.js",
     "start": "docusaurus start",
-    "build": "cross-env DOCUSAURUS_PROGRESS_BAR=false docusaurus build",
+    "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
