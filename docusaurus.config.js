@@ -17,7 +17,7 @@ const config = {
       "classic",
       {
         docs: {
-          sidebarPath: "./sidebars.ts",
+          sidebarPath: "./sidebars.js",
           editUrl: "https://github.com/yourusername/stellarnotify-docs/tree/main/",
           routeBasePath: "/",
         },
