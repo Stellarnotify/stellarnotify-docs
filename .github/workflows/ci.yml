@@ -24,7 +24,7 @@ jobs:
       
       - name: Build with Docker
         run: |
-          docker build --target 0 -t stellarnotify-docs-build .
+          docker build --target builder -t stellarnotify-docs-build .
           docker create --name extract stellarnotify-docs-build
           docker cp extract:/app/build ./build
           docker rm extract
