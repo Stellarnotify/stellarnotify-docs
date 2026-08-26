@@ -1,4 +1,5 @@
-const { themes } = require("prism-react-renderer");
+const lightCodeTheme = require('prism-react-renderer/themes/github');
+const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 const config = {
   title: "StellarNotify",
@@ -61,8 +62,8 @@ const config = {
       copyright: `Copyright © ${new Date().getFullYear()} StellarNotify. MIT License.`,
     },
     prism: {
-      theme: themes.oneDark,
-      darkTheme: themes.oneDark,
+      theme: darkCodeTheme,
+      darkTheme: darkCodeTheme,
       additionalLanguages: ["rust", "toml", "bash", "json"],
     },
   },
