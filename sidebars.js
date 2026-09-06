@@ -36,6 +36,7 @@ const sidebars = {
     },
     { type: "doc", id: "security", label: "Security Model" },
     { type: "doc", id: "endpoint-privacy", label: "Endpoint Privacy" },
+    { type: "doc", id: "rate-limits", label: "Rate Limits & Quotas" },
     { type: "doc", id: "integration-guide", label: "Integration Guide" },
     { type: "doc", id: "use-cases", label: "Use Cases" },
     { type: "doc", id: "glossary", label: "Glossary" },
