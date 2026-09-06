@@ -213,6 +213,190 @@ es.addEventListener("error", (event) => {
 });
 ```
 
+## Production-Ready Example with Full Error Handling
+
+Here's a complete implementation incorporating all best practices:
+
+```javascript
+class StellarNotifySSE {
+  constructor(backendUrl, owner, options = {}) {
+    this.backendUrl = backendUrl;
+    this.owner = owner;
+    this.onNotification = options.onNotification || (() => {});
+    this.onStatusChange = options.onStatusChange || (() => {});
+    
+    this.reconnectDelay = 1000;
+    this.maxReconnectDelay = 30000;
+    this.lastHeartbeat = Date.now();
+    this.eventSource = null;
+    this.heartbeatTimer = null;
+    this.reconnectTimer = null;
+  }
+
+  connect() {
+    const url = `${this.backendUrl}/sse/${this.owner}`;
+    this.eventSource = new EventSource(url);
+
+    this.eventSource.addEventListener("open", () => {
+      this.onStatusChange("connected");
+      this.reconnectDelay = 1000; // Reset backoff
+      this.lastHeartbeat = Date.now();
+      this.startHeartbeatMonitor();
+    });
+
+    this.eventSource.addEventListener("notification", (event) => {
+      this.lastHeartbeat = Date.now(); // Reset on any activity
+      try {
+        const data = JSON.parse(event.data);
+        this.onNotification(data);
+      } catch (err) {
+        console.error("Failed to parse notification:", err);
+      }
+    });
+
+    this.eventSource.addEventListener("heartbeat", () => {
+      this.lastHeartbeat = Date.now();
+    });
+
+    this.eventSource.addEventListener("error", (event) => {
+      this.stopHeartbeatMonitor();
+      
+      // Handle specific HTTP errors
+      if (this.eventSource.readyState === EventSource.CONNECTING) {
+        // Connection failed to establish
+        this.onStatusChange("error");
+      } else if (this.eventSource.readyState === EventSource.CLOSED) {
+        // Server closed connection
+        this.onStatusChange("disconnected");
+      }
+      
+      this.eventSource.close();
+      this.scheduleReconnect();
+    });
+  }
+
+  startHeartbeatMonitor() {
+    this.heartbeatTimer = setInterval(() => {
+      const age = Date.now() - this.lastHeartbeat;
+      if (age > 45000) { // 45 seconds without activity
+        console.warn("Stale connection detected");
+        this.eventSource.close();
+        this.scheduleReconnect();
+      }
+    }, 30000); // Check every 30 seconds
+  }
+
+  stopHeartbeatMonitor() {
+    if (this.heartbeatTimer) {
+      clearInterval(this.heartbeatTimer);
+      this.heartbeatTimer = null;
+    }
+  }
+
+  scheduleReconnect() {
+    if (this.reconnectTimer) return; // Already scheduled
+    
+    this.onStatusChange("reconnecting", this.reconnectDelay);
+    
+    this.reconnectTimer = setTimeout(() => {
+      this.reconnectTimer = null;
+      this.reconnectDelay = Math.min(
+        this.reconnectDelay * 2,
+        this.maxReconnectDelay
+      );
+      this.connect();
+    }, this.reconnectDelay);
+  }
+
+  disconnect() {
+    this.stopHeartbeatMonitor();
+    if (this.reconnectTimer) {
+      clearTimeout(this.reconnectTimer);
+      this.reconnectTimer = null;
+    }
+    if (this.eventSource) {
+      this.eventSource.close();
+      this.eventSource = null;
+    }
+    this.onStatusChange("disconnected");
+  }
+}
+
+// Usage
+const statusEl = document.getElementById("status");
+const feedEl = document.getElementById("feed");
+
+const client = new StellarNotifySSE(
+  "https://your-backend.example.com",
+  "GAAA...",
+  {
+    onNotification: (data) => {
+      const li = document.createElement("li");
+      const time = new Date(data.timestamp).toLocaleTimeString();
+      li.innerHTML = `
+        <strong>${time}</strong> — subscription #${data.subscription_id}
+        <div class="contract">${data.contract}</div>
+        <div class="topics">${data.topics.join(", ")}</div>
+      `;
+      feedEl.prepend(li);
+      
+      // Keep list size manageable
+      while (feedEl.children.length > 50) {
+        feedEl.removeChild(feedEl.lastChild);
+      }
+    },
+    onStatusChange: (status, delay) => {
+      switch (status) {
+        case "connected":
+          statusEl.textContent = "● Connected";
+          statusEl.style.color = "#4ade80";
+          break;
+        case "disconnected":
+          statusEl.textContent = "⚠ Disconnected";
+          statusEl.style.color = "#f87171";
+          break;
+        case "reconnecting":
+          statusEl.textContent = `⚠ Reconnecting in ${delay / 1000}s...`;
+          statusEl.style.color = "#fbbf24";
+          break;
+        case "error":
+          statusEl.textContent = "⚠ Connection error";
+          statusEl.style.color = "#f87171";
+          break;
+      }
+    }
+  }
+);
+
+// Start connection
+client.connect();
+
+// Cleanup on page unload
+window.addEventListener("beforeunload", () => {
+  client.disconnect();
+});
+```
+
+### Best Practices Summary
+
+#### ✅ Do
+
+- **Use exponential backoff** with a reasonable cap (30 seconds)
+- **Reset backoff delay** on successful connection
+- **Monitor connection health** with heartbeats
+- **Handle specific HTTP errors** differently (401 vs 503)
+- **Cleanup timers and connections** on disconnect
+- **Limit in-memory buffer size** (e.g., last 50 notifications)
+- **Parse event data safely** with try-catch blocks
+
+#### ❌ Don't
+
+- **Reconnect immediately** on every error (causes server load)
+- **Reconnect forever** on 401/404 errors (show user message instead)
+- **Ignore heartbeats** (connection might be stale but not closed)
+- **Keep unbounded lists** in memory (causes memory leaks)
+- **Trust event data format** without validation
+
 ## React Version
 
 For a React implementation using `useEffect` and TanStack Query, see [SSE / Real-time Feed](../frontend/sse).
